@@ -1,0 +1,54 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual environments ───────────────────────────────────────────────────────
+venv/
+env/
+.venv/
+.env.local
+.env.*.local
+
+# ── Secrets — NEVER commit real API keys ──────────────────────────────────────
+.env
+!.env.example
+
+# ── Runtime data (large, regenerated on first run) ────────────────────────────
+casvem-v3/data/
+casvem-v3/benchmark/results/*.json
+!casvem-v3/benchmark/results/.gitkeep
+
+# ── Large dataset files (download from source, not git) ───────────────────────
+casvem-v1/benchmark/beam_data/
+casvem-v1/benchmark/longmemeval_data/
+casvem-v1/database/
+
+# ── Model cache (downloaded by transformers on first run) ─────────────────────
+*.bin
+*.safetensors
+*.pt
+.cache/
+
+# ── OS / editor ───────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+*.pid
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+.claude
