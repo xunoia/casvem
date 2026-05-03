@@ -1,0 +1,1 @@
+{"query":"When is the CaSVeM project deadline?","memory_block":"CaSVeM is switching from Weaviate to Qdrant for vector data storage and retrieval, with Qdrant offering better documentation and a simpler API. Deadline not specified in memory.","answer":"I don't have that information.","confidence":"high","routed_to":"local","layers_hit":[1,2,3,4]}

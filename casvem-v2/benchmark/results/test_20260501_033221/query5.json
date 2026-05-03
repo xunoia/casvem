@@ -1,0 +1,1 @@
+{"query":"What is my salary?","memory_block":"Memory brief: Switching from Weaviate to Qdrant for vector data, with Qdrant offering better documentation and simpler API. Low-confidence items: None.","answer":"I don't have that information.","confidence":"high","routed_to":"local","layers_hit":[1,2,3,4]}

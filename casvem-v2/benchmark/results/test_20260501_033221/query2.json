@@ -1,0 +1,1 @@
+{"query":"Which database are we using for the project?","memory_block":"L1 and L2 indicate that the project uses Weaviate as the database. No low-confidence items.","answer":"L1 and L2 indicate that the project uses Weaviate as the database.","confidence":"medium","routed_to":"local","layers_hit":[1,2]}

@@ -1,0 +1,1 @@
+{"query":"What backend framework am I using for CaSVeM?","memory_block":"L1 and L2: CaSVeM is built with FastAPI and Weaviate as database.","answer":"The backend framework used for CaSVeM is FastAPI.","confidence":"medium","routed_to":"local","layers_hit":[1,2]}
