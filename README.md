@@ -329,7 +329,7 @@ casvem/
 
 ---
 
-*Built by **Mujahed** & **Aimann** — [Xunoia Technologies Private Limited](https://xunoia.com)*  
+*Built by **Aimann**  & **Mujahed**  — [Xunoia Technologies Private Limited](https://xunoia.com)*  
 *[casvem-v3](casvem-v3/) is the active codebase.*
 
 © 2026 Xunoia Technologies Private Limited
