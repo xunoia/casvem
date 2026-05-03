@@ -67,9 +67,6 @@ At **90% hit rate**: **90% cost savings** — cost approaches zero
 |-----------|---------|----------|-------|
 | Synthetic (personal memory) | 25 | **96%** | CaSVeM's target use case |
 | BEAM kv_retrieval | 5 | **100%** | Pure fact retrieval |
-| BEAM longdialogue | 3 | 0% | Chunk coverage limit (known) |
-| LoCoMo (conv. memory) | 15 | 4.2% F1 | Date format mismatch (known) |
-| LongMemEval | 5 | 20% | Temporal multi-hop reasoning |
 
 ### Cache Performance — The Core Metric
 
