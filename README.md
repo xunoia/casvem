@@ -12,24 +12,24 @@ The more you use it, the cheaper it gets. That's the flywheel.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  User asks: "What's my name?"  ← asked 10,000 times today      │
-│                                                                  │
-│  Every AI memory system today:                                   │
+│  User asks: "What's my name?"  ← asked 10,000 times today       │
+│                                                                 │
+│  Every AI memory system today:                                  │
 │    Query 1:      → LLM call → $0.0002                           │
 │    Query 2:      → LLM call → $0.0002   (same answer!)          │
 │    Query 10,000: → LLM call → $0.0002   (STILL same answer!)    │
-│                                                                  │
+│                                                                 │
 │  Total: $2.00 to answer the same question 10,000 times          │
 └─────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────────┐
-│  With CaSVeM:                                                    │
+│  With CaSVeM:                                                   │
 │    Query 1:      → LLM call → $0.0002   (cache miss, pays)      │
 │    Query 2:      → Cache hit → $0.00  ✓ (47ms, zero tokens)     │
 │    Query 10,000: → Cache hit → $0.00  ✓ (15ms, zero tokens)     │
-│                                                                  │
+│                                                                 │
 │  Total: $0.0002 to answer the same question 10,000 times        │
-│  Saving: 99.98%                                                  │
+│  Saving: 99.98%                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -42,8 +42,8 @@ The more you use it, the cheaper it gets. That's the flywheel.
        │
        ▼
   Cache warms ──────────────────────────────────┐
-       │                                         │
-       ▼                                         │
+       │                                        │
+       ▼                                        │
   Hit rate rises                            Economic moat
        │                                    (competitors
        ▼                                    can't replicate
@@ -133,57 +133,57 @@ Full benchmark report: [casvem-v3/benchmark/result.md](casvem-v3/benchmark/resul
 ┌──────────────────────────────────────────────────────────────────┐
 │  v3 Architecture — 6-stage pipeline                              │
 │                                                                  │
-│                        ┌─────────────┐                          │
-│   Query ──────────────►│  L1 Cache   │──── HIT ──► Answer ~1ms  │
-│                        │  (hot LRU)  │                          │
-│                        └──────┬──────┘                          │
+│                        ┌─────────────┐                           │
+│   Query ──────────────►│  L1 Cache   │──── HIT ──► Answer ~1ms   │
+│                        │  (hot LRU)  │                           │
+│                        └──────┬──────┘                           │
 │                               │ MISS                             │
 │                               ▼                                  │
-│                        ┌─────────────┐                          │
-│                        │  L2 Cache   │──── HIT ──► Answer ~47ms │
-│                        │  (warm LRU) │                          │
-│                        └──────┬──────┘                          │
+│                        ┌─────────────┐                           │
+│                        │  L2 Cache   │──── HIT ──► Answer ~47ms  │
+│                        │  (warm LRU) │                           │
+│                        └──────┬──────┘                           │
 │                               │ MISS                             │
 │                               ▼                                  │
-│                        ┌─────────────┐                          │
-│                        │   Roaring   │                          │
-│                        │   Bitmap    │ ← O(1) metadata filter   │
-│                        └──────┬──────┘                          │
+│                        ┌─────────────┐                           │
+│                        │   Roaring   │                           │
+│                        │   Bitmap    │ ← O(1) metadata filter    │
+│                        └──────┬──────┘                           │
 │                               │                                  │
 │                               ▼                                  │
-│                        ┌─────────────┐                          │
-│                        │    HNSW     │ ← ANN vector search      │
-│                        │  (usearch)  │   sub-10ms, k=50         │
-│                        └──────┬──────┘                          │
+│                        ┌─────────────┐                           │
+│                        │    HNSW     │ ← ANN vector search       │
+│                        │  (usearch)  │   sub-10ms, k=50          │
+│                        └──────┬──────┘                           │
 │                               │                                  │
 │                               ▼                                  │
-│                        ┌─────────────┐                          │
-│                        │  Cross-enc  │ ← rerank k=50 → k=5      │
+│                        ┌─────────────┐                           │
+│                        │  Cross-enc  │ ← rerank k=50 → k=5       │
 │                        │  Reranker   │   precision boost         │
-│                        └──────┬──────┘                          │
+│                        └──────┬──────┘                           │
 │                               │                                  │
 │                               ▼                                  │
-│                        ┌─────────────┐                          │
-│                        │   Context   │ ← token-budget aware     │
-│                        │   Builder   │                          │
-│                        └──────┬──────┘                          │
+│                        ┌─────────────┐                           │
+│                        │   Context   │ ← token-budget aware      │ 
+│                        │   Builder   │                           │
+│                        └──────┬──────┘                           │
 │                               │                                  │
 │                               ▼                                  │
-│                        ┌─────────────┐                          │
-│                        │    LLM      │ ← Gemini 2.5 Flash       │
-│                        │  (cold only)│   or Ollama (1 .env var) │
-│                        └──────┬──────┘                          │
+│                        ┌─────────────┐                           │
+│                        │    LLM      │ ← Gemini 2.5 Flash        │
+│                        │  (cold only)│   or Ollama (1 .env var)  │
+│                        └──────┬──────┘                           │
 │                               │                                  │
 │                               ▼                                  │
-│                        ┌─────────────┐                          │
-│                        │   Cache     │ ← writeback flywheel     │
-│                        │  Writeback  │   warms L1+L2 for next   │
-│                        └─────────────┘                          │
+│                        ┌─────────────┐                           │
+│                        │   Cache     │ ← writeback flywheel      │
+│                        │  Writeback  │   warms L1+L2 for next    │
+│                        └─────────────┘                           │
 │                                                                  │
-│  ✓ Semantic cache (cosine ≥0.92 similarity check)               │
-│  ✓ Two-level LRU (L1 hot / L2 warm)                             │
-│  ✓ Roaring Bitmap O(1) metadata pre-filter                      │
-│  ✓ HNSW ANN search (usearch — no C++ compiler needed)           │
+│  ✓ Semantic cache (cosine ≥0.92 similarity check)                │
+│  ✓ Two-level LRU (L1 hot / L2 warm)                              │
+│  ✓ Roaring Bitmap O(1) metadata pre-filter                       │
+│  ✓ HNSW ANN search (usearch — no C++ compiler needed)            │
 │  ✓ Cross-encoder reranker (precision retrieval)                  │
 │  ✓ Token-budget context builder                                  │
 │  ✓ Exact USD cost tracking from API metadata                     │
