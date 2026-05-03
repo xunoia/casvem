@@ -1,0 +1,12 @@
+venv/
+data/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.pkl
+*.usearch
+benchmark/results/
+benchmark/longmemeval_data/
+benchmark/locomo_data/
+.cache/

@@ -1,0 +1,236 @@
+{
+  "description": "Synthetic benchmark dataset for CaSVeM v3. Tests personal AI memory across 5 categories. Created to demonstrate retrieval accuracy, cache warmup, and token savings at scale.",
+  "version": "1.0",
+  "created": "2026-05-03",
+
+  "memories": [
+    {"id": "m01", "text": "User's name is Arjun Sharma. He goes by Arjun.", "type": "profile"},
+    {"id": "m02", "text": "Arjun is a backend software engineer at a Series B fintech startup in Bangalore.", "type": "profile"},
+    {"id": "m03", "text": "Arjun has 5 years of experience. Primarily works in Python and Go.", "type": "profile"},
+    {"id": "m04", "text": "Arjun lives in Indiranagar, Bangalore with his wife Priya.", "type": "profile"},
+    {"id": "m05", "text": "Arjun prefers dark mode in all IDEs and terminals. Uses VS Code with vim keybindings.", "type": "preference"},
+    {"id": "m06", "text": "Arjun drinks black coffee every morning, no sugar. Allergic to milk.", "type": "preference"},
+    {"id": "m07", "text": "Arjun's favorite programming language is Python for ML work, Go for systems.", "type": "preference"},
+    {"id": "m08", "text": "Arjun is vegetarian. Favorite food is dosa and sambar.", "type": "preference"},
+    {"id": "m09", "text": "Arjun runs 5km every Tuesday and Thursday morning before work.", "type": "routine"},
+    {"id": "m10", "text": "Arjun meditates for 10 minutes every evening using Headspace app.", "type": "routine"},
+    {"id": "m11", "text": "Arjun's current project: building a payment reconciliation microservice using Kafka and PostgreSQL.", "type": "work"},
+    {"id": "m12", "text": "Arjun is learning Rust in his spare time. Currently on Chapter 8 of the Rust Book.", "type": "work"},
+    {"id": "m13", "text": "Arjun's team uses GitHub for version control, Jira for project tracking, Slack for communication.", "type": "work"},
+    {"id": "m14", "text": "Arjun's annual salary review is in September. He wants to negotiate a 20% raise.", "type": "work"},
+    {"id": "m15", "text": "Arjun is applying to Y Combinator with his side project CaSVeM — an AI memory system.", "type": "goal"},
+    {"id": "m16", "text": "Arjun's three-year goal: become a founding engineer at an AI startup or start his own.", "type": "goal"},
+    {"id": "m17", "text": "Arjun has been reading Designing Data-Intensive Applications by Martin Kleppmann.", "type": "activity"},
+    {"id": "m18", "text": "Last week Arjun attended PyCon India 2026 in Hyderabad. Talked with several ML engineers.", "type": "activity"},
+    {"id": "m19", "text": "Arjun's GitHub handle is arjunsharma-dev. He has 847 public contributions this year.", "type": "profile"},
+    {"id": "m20", "text": "Arjun's laptop: MacBook Pro M3 at work. Personal machine: ThinkPad X1 Carbon running Ubuntu 24.04.", "type": "profile"}
+  ],
+
+  "qa": [
+    {
+      "id": "q01",
+      "category": "single_fact",
+      "question": "What is the user's name?",
+      "answer": "Arjun Sharma",
+      "relevant_memories": ["m01"],
+      "expected_keywords": ["arjun", "sharma"]
+    },
+    {
+      "id": "q02",
+      "category": "single_fact",
+      "question": "Where does the user live?",
+      "answer": "Indiranagar, Bangalore",
+      "relevant_memories": ["m04"],
+      "expected_keywords": ["bangalore", "indiranagar"]
+    },
+    {
+      "id": "q03",
+      "category": "single_fact",
+      "question": "What is the user's job?",
+      "answer": "Backend software engineer at a fintech startup",
+      "relevant_memories": ["m02"],
+      "expected_keywords": ["engineer", "fintech", "backend"]
+    },
+    {
+      "id": "q04",
+      "category": "preference",
+      "question": "What kind of coffee does the user drink?",
+      "answer": "Black coffee, no sugar",
+      "relevant_memories": ["m06"],
+      "expected_keywords": ["black", "coffee", "sugar"]
+    },
+    {
+      "id": "q05",
+      "category": "preference",
+      "question": "What IDE does the user prefer?",
+      "answer": "VS Code with vim keybindings, dark mode",
+      "relevant_memories": ["m05"],
+      "expected_keywords": ["vs code", "vim", "dark"]
+    },
+    {
+      "id": "q06",
+      "category": "preference",
+      "question": "What programming languages does the user prefer?",
+      "answer": "Python for ML, Go for systems work",
+      "relevant_memories": ["m03", "m07"],
+      "expected_keywords": ["python", "go"]
+    },
+    {
+      "id": "q07",
+      "category": "preference",
+      "question": "Is the user vegetarian?",
+      "answer": "Yes, vegetarian. Favorite food is dosa and sambar.",
+      "relevant_memories": ["m08"],
+      "expected_keywords": ["vegetarian", "dosa"]
+    },
+    {
+      "id": "q08",
+      "category": "routine",
+      "question": "When does the user exercise?",
+      "answer": "Runs 5km on Tuesday and Thursday mornings",
+      "relevant_memories": ["m09"],
+      "expected_keywords": ["tuesday", "thursday", "run"]
+    },
+    {
+      "id": "q09",
+      "category": "work",
+      "question": "What is the user currently building at work?",
+      "answer": "A payment reconciliation microservice using Kafka and PostgreSQL",
+      "relevant_memories": ["m11"],
+      "expected_keywords": ["payment", "kafka", "postgresql"]
+    },
+    {
+      "id": "q10",
+      "category": "work",
+      "question": "What new language is the user learning?",
+      "answer": "Rust, currently on Chapter 8 of the Rust Book",
+      "relevant_memories": ["m12"],
+      "expected_keywords": ["rust"]
+    },
+    {
+      "id": "q11",
+      "category": "goal",
+      "question": "What startup program is the user applying to?",
+      "answer": "Y Combinator, for a project called CaSVeM",
+      "relevant_memories": ["m15"],
+      "expected_keywords": ["y combinator", "casvem"]
+    },
+    {
+      "id": "q12",
+      "category": "multi_fact",
+      "question": "What city does the user live in and what do they do for work?",
+      "answer": "Lives in Bangalore, works as a backend engineer at a fintech startup",
+      "relevant_memories": ["m02", "m04"],
+      "expected_keywords": ["bangalore", "engineer", "fintech"]
+    },
+    {
+      "id": "q13",
+      "category": "multi_fact",
+      "question": "What tools does the user's team use for development?",
+      "answer": "GitHub, Jira, and Slack",
+      "relevant_memories": ["m13"],
+      "expected_keywords": ["github", "jira", "slack"]
+    },
+    {
+      "id": "q14",
+      "category": "activity",
+      "question": "What conference did the user recently attend?",
+      "answer": "PyCon India 2026 in Hyderabad",
+      "relevant_memories": ["m18"],
+      "expected_keywords": ["pycon", "hyderabad"]
+    },
+    {
+      "id": "q15",
+      "category": "activity",
+      "question": "What book is the user currently reading?",
+      "answer": "Designing Data-Intensive Applications by Martin Kleppmann",
+      "relevant_memories": ["m17"],
+      "expected_keywords": ["designing data", "kleppmann"]
+    },
+    {
+      "id": "q16",
+      "category": "single_fact",
+      "question": "What is the user's GitHub username?",
+      "answer": "arjunsharma-dev",
+      "relevant_memories": ["m19"],
+      "expected_keywords": ["arjunsharma-dev"]
+    },
+    {
+      "id": "q17",
+      "category": "single_fact",
+      "question": "What personal laptop does the user have?",
+      "answer": "ThinkPad X1 Carbon running Ubuntu 24.04",
+      "relevant_memories": ["m20"],
+      "expected_keywords": ["thinkpad", "ubuntu"]
+    },
+    {
+      "id": "q18",
+      "category": "goal",
+      "question": "What is the user's long-term career goal?",
+      "answer": "Become a founding engineer at an AI startup or start their own",
+      "relevant_memories": ["m16"],
+      "expected_keywords": ["founding", "startup", "ai"]
+    },
+    {
+      "id": "q19",
+      "category": "routine",
+      "question": "What does the user do every evening?",
+      "answer": "Meditates for 10 minutes using Headspace",
+      "relevant_memories": ["m10"],
+      "expected_keywords": ["meditat", "headspace"]
+    },
+    {
+      "id": "q20",
+      "category": "preference",
+      "question": "What food is the user allergic to?",
+      "answer": "Milk",
+      "relevant_memories": ["m06"],
+      "expected_keywords": ["milk"]
+    },
+    {
+      "id": "q21_repeat1",
+      "category": "repeat_cache_test",
+      "question": "What is the user's name?",
+      "answer": "Arjun Sharma",
+      "relevant_memories": ["m01"],
+      "expected_keywords": ["arjun"],
+      "note": "Repeat of q01 — should be L2 cache hit"
+    },
+    {
+      "id": "q22_repeat2",
+      "category": "repeat_cache_test",
+      "question": "Where does the user live?",
+      "answer": "Indiranagar, Bangalore",
+      "relevant_memories": ["m04"],
+      "expected_keywords": ["bangalore"],
+      "note": "Repeat of q02 — should be L2 cache hit"
+    },
+    {
+      "id": "q23_paraphrase",
+      "category": "paraphrase_cache_test",
+      "question": "What city is the user based in?",
+      "answer": "Bangalore",
+      "relevant_memories": ["m04"],
+      "expected_keywords": ["bangalore"],
+      "note": "Paraphrase of q02 — should be semantic L2 hit"
+    },
+    {
+      "id": "q24_paraphrase",
+      "category": "paraphrase_cache_test",
+      "question": "What does Arjun do professionally?",
+      "answer": "Backend software engineer at a fintech startup",
+      "relevant_memories": ["m02"],
+      "expected_keywords": ["engineer", "fintech"],
+      "note": "Paraphrase of q03 — should be semantic L2 hit"
+    },
+    {
+      "id": "q25_repeat3",
+      "category": "repeat_cache_test",
+      "question": "What programming languages does the user prefer?",
+      "answer": "Python and Go",
+      "relevant_memories": ["m03", "m07"],
+      "expected_keywords": ["python", "go"],
+      "note": "Repeat of q06 — should be L2 cache hit"
+    }
+  ]
+}
