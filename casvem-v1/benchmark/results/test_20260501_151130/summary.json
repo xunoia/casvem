@@ -1,0 +1,30 @@
+{
+  "run_id": "test_20260501_151130",
+  "layer_counts": {
+    "L1": 13,
+    "L2": 26,
+    "L3": 30,
+    "L4": 75,
+    "L5": 16
+  },
+  "write_pipeline_sec": 10,
+  "query_latency_ms": {
+    "avg": 79317,
+    "min": 68469,
+    "max": 109961,
+    "per_query": {
+      "query1": 109961,
+      "query2": 69266,
+      "query3": 72005,
+      "query4": 76884,
+      "query5": 68469
+    }
+  },
+  "validation": {
+    "contradiction_detection": true,
+    "hallucination_guard": true,
+    "personal_fact_recall": true,
+    "write_pipeline_ok": true
+  },
+  "suite_total_ms": 409497
+}

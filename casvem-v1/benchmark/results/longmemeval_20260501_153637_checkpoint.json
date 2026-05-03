@@ -1,0 +1,14 @@
+[
+  {
+    "question_id": "gpt4_2655b836",
+    "question_type": "temporal-reasoning",
+    "group": "temporal",
+    "question": "What was the first issue I had with my new car after its first service?",
+    "expected": "GPS system not functioning correctly",
+    "got": "",
+    "correct": false,
+    "confidence": "low",
+    "layers_hit": [],
+    "latency_ms": 180184
+  }
+]

@@ -1,0 +1,1 @@
+{"query":"What backend framework am I using for CaSVeM?","memory_block":"The user is using FastAPI as the backend for CaSVeM. The database is being switched from Weaviate to Qdrant. Low-confidence items: None.","answer":"The backend framework being used for CaSVeM is FastAPI.","confidence":"medium","routed_to":"local","layers_hit":[3,4]}

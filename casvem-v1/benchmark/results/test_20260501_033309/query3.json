@@ -1,0 +1,1 @@
+{"query":"Where is the developer based and how old are they?","memory_block":"Developer is based in [unknown], age not specified. Low-confidence entries: L1, L2, L3, L4.","answer":"I don't have that information.","confidence":"high","routed_to":"local","layers_hit":[1,2,3,4]}

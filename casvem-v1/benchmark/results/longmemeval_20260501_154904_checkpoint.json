@@ -1,0 +1,42 @@
+[
+  {
+    "question_id": "gpt4_2655b836",
+    "question_type": "temporal-reasoning",
+    "group": "temporal",
+    "question": "What was the first issue I had with my new car after its first service?",
+    "expected": "GPS system not functioning correctly",
+    "got": "I don't know what was the first issue you had with your new car after its first service.",
+    "correct": false,
+    "confidence": "low",
+    "layers_hit": [
+      5
+    ],
+    "latency_ms": 38374
+  },
+  {
+    "question_id": "gpt4_2487a7cb",
+    "question_type": "temporal-reasoning",
+    "group": "temporal",
+    "question": "Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?",
+    "expected": "'Data Analysis using Python' webinar",
+    "got": "",
+    "correct": false,
+    "confidence": "low",
+    "layers_hit": [],
+    "latency_ms": 180199
+  },
+  {
+    "question_id": "gpt4_76048e76",
+    "question_type": "temporal-reasoning",
+    "group": "temporal",
+    "question": "Which vehicle did I take care of first in February, the bike or the car?",
+    "expected": "bike",
+    "got": "I don't know which vehicle was taken care of first in February, the bike or the car.",
+    "correct": false,
+    "confidence": "low",
+    "layers_hit": [
+      5
+    ],
+    "latency_ms": 24164
+  }
+]

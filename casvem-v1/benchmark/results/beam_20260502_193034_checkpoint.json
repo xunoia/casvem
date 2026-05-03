@@ -1,0 +1,15 @@
+[
+  {
+    "item_id": 0,
+    "ctx_tokens": 502,
+    "question": "\nKey: \"798c2306-5ad1-42a9-a8de-f2a118b33744\"\nThe value associated with the specified key is: ",
+    "expected": "5e6b7b90-710d-4953-9b18-3e96b2cadbf2",
+    "got": "The value associated with the key \"798c2306-5ad1-42a9-a8de-f2a118b33744\" is \"5e6b7b90-710d-4953-9b18-3e96b2cadbf2\".",
+    "f1": 0.5263157894736842,
+    "confidence": "low",
+    "layers_hit": [
+      5
+    ],
+    "latency_ms": 52726
+  }
+]
