@@ -10,12 +10,14 @@ class Reranker:
         self._threshold = early_exit_threshold
 
     def rerank(
-        self, query: str, candidates: list[dict], top_n: int
+        self, query: str, candidates: list[dict], top_n: int, early_exit: bool = True
     ) -> list[dict]:
         """
         candidates: list of memory dicts (must have 'text' key).
         Returns top_n memories sorted by cross-encoder score, highest first.
-        Early exit: if top score > threshold, skip remaining candidates.
+        early_exit: if True and top score > threshold, return only 1 result (fast path
+        for single-fact personal memory). Set False when multiple chunks are needed
+        (e.g. multi-session benchmarks requiring temporal reasoning).
         """
         if not candidates:
             return []
@@ -34,8 +36,7 @@ class Reranker:
             result.append(memory)
             if len(result) >= top_n:
                 break
-            # Early exit: top result is confident enough, stop here
-            if score > self._threshold and len(result) == 1:
+            if early_exit and score > self._threshold and len(result) == 1:
                 break
 
         return result
