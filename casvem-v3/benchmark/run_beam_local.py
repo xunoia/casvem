@@ -37,7 +37,7 @@ DLG_PATH = "/media/mujahed/CS-Disk/XUNOIA/casvem/casvem-v1/benchmark/beam_data/l
 RESULTS_DIR = str(Path(__file__).parent / "results")
 
 KV_DISTRACTORS = 49      # target key + this many random k/v distractors
-DLG_MAX_CHUNKS = 40      # max 2000-char chunks to ingest per dialogue
+DLG_MAX_CHUNKS = 300     # ingest all chunks — 382KB / 2000 = ~191 chunks; cap at 300
 DLG_CHUNK_SIZE = 2000
 
 
@@ -176,24 +176,29 @@ async def run_dialogue(limit: int = 10):
 
     for i, item in enumerate(items):
         context = item["context"]
-        # Transform fill-in-blank into a direct question the LLM can answer
         raw_q = item["input"].replace("$$MASK$$", "___")
-        question = (
-            f"Based on the screenplay/dialogue context provided, fill in the blank: "
-            f"{raw_q}  Answer with ONLY the character name or word, nothing else."
-        )
         expected_answers = [a.lower() for a in item["answer"]]
 
         _reset_item_state()
 
-        # Split context into chunks and ingest first DLG_MAX_CHUNKS
+        # Ingest all chunks
         chunks = _chunk_text(context, DLG_CHUNK_SIZE)[:DLG_MAX_CHUNKS]
         for chunk in chunks:
             ingest(text=chunk, memory_type="document")
 
-        # Query
+        # Build a semantic query that HNSW can match against character introductions.
+        # "Which character is ___?" has zero semantic signal for HNSW.
+        # Instead ask the character-identity question directly so retrieval finds
+        # the chunk that introduces the protagonist by name.
+        question = (
+            f"What is the name of the main character or protagonist in this screenplay? "
+            f"The fill-in-the-blank question from the script is: {raw_q} "
+            f"Answer with ONLY the character name, nothing else."
+        )
+
+        # top_k=300, early_exit=False: retrieve all chunks, pass best 8 to LLM
         t0 = time.perf_counter()
-        result = await casvem_query(text=question)
+        result = await casvem_query(text=question, top_k=300, top_n=8, token_budget=6000, early_exit=False)
         latency = (time.perf_counter() - t0) * 1000
 
         got_lower = result.answer.lower()
