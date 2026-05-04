@@ -11,7 +11,7 @@ class Config:
     llm_backend: str = os.getenv("LLM_BACKEND", "gemini")
     llm_model: str = os.getenv("LLM_MODEL", "gemini-2.5-flash")
     llm_temperature: float = float(os.getenv("LLM_TEMPERATURE", "0.1"))
-    llm_max_tokens: int = int(os.getenv("LLM_MAX_TOKENS", "1024"))
+    llm_max_tokens: int = int(os.getenv("LLM_MAX_TOKENS", "2048"))
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
     ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
