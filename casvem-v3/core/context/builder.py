@@ -49,6 +49,12 @@ ANSWER_PROMPT = """You are an AI assistant with access to the following memory c
 Use ONLY the provided memories to answer the question.
 If the answer is not in the memories, say "I don't have that information."
 
+Rules:
+- Memories tagged [Date: ...] tell you when that conversation or event happened. Use these dates to answer temporal questions (when, which came first, before/after).
+- For temporal ordering questions, compare the [Date: ...] tags across memories before answering.
+- Give specific, concise answers. State exact dates, names, and facts as they appear in the memories.
+- When asked what two people BOTH did or have in common, find evidence for BOTH people individually. Prioritize concrete life events (jobs, activities explicitly done together, shared decisions) over frequently mentioned topics.
+
 {context}
 
 Question: {question}
