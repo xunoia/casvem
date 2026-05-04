@@ -45,6 +45,10 @@ async def query(
     author_id: Optional[str] = None,
     date_from: Optional[str] = None,
     date_to: Optional[str] = None,
+    top_n: Optional[int] = None,
+    top_k: Optional[int] = None,
+    token_budget: Optional[int] = None,
+    early_exit: bool = True,
 ) -> QueryResult:
     t0 = time.perf_counter()
     encoder = get_encoder()
@@ -97,7 +101,7 @@ async def query(
         label_to_id = storage._label_to_id
         candidate_ids = {label_to_id[lbl] for lbl in candidate_labels if lbl in label_to_id}
 
-    hnsw_results = storage.search_hnsw(query_vec, k=cfg.top_k, candidate_ids=candidate_ids)
+    hnsw_results = storage.search_hnsw(query_vec, k=top_k or cfg.top_k, candidate_ids=candidate_ids)
 
     if not hnsw_results:
         latency_ms = (time.perf_counter() - t0) * 1000
@@ -120,11 +124,11 @@ async def query(
     for m in memories_raw:
         m["hnsw_score"] = score_map.get(m["id"], 0.0)
 
-    reranked = get_reranker().rerank(text, memories_raw, top_n=cfg.top_n)
-    context = build_context(text, reranked)
+    reranked = get_reranker().rerank(text, memories_raw, top_n=top_n or cfg.top_n, early_exit=early_exit)
+    context = build_context(text, reranked, token_budget=token_budget)
     prompt = build_prompt(text, context)
 
-    completion: CompletionResult = await get_llm_provider().complete(prompt)
+    completion: CompletionResult = await get_llm_provider().complete(prompt, max_tokens=cfg.llm_max_tokens)
 
     latency_ms = (time.perf_counter() - t0) * 1000
     used_ids = [m["id"] for m in reranked]
