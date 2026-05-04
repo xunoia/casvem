@@ -309,9 +309,9 @@ if [ "$BENCH_SKIPPED" = "0" ]; then
         fail "Synthetic benchmark"
     fi
 
-    # ── LoCoMo (no LLM judge, fast) ───────────────────────────────────────────
+    # ── LoCoMo (LLM judge, session-date-prefixed ingestion) ──────────────────
     echo ""
-    echo "  Running LoCoMo (local, 3 records × 5 QA, Token F1)..."
+    echo "  Running LoCoMo (local, 3 records × 5 QA, LLM judge + date-tagged sessions)..."
     LOCOMO_OUT=$(venv/bin/python3 benchmark/run_locomo_local.py --limit 3 --qa-per-record 5 2>&1)
     echo "$LOCOMO_OUT"
     if echo "$LOCOMO_OUT" | grep -q "LoCoMo (local) Results"; then
@@ -320,9 +320,9 @@ if [ "$BENCH_SKIPPED" = "0" ]; then
         fail "LoCoMo benchmark"
     fi
 
-    # ── BEAM (kv_retrieval + longdialogue, no LLM judge) ──────────────────────
+    # ── BEAM (kv_retrieval + longdialogue, full chunk ingestion) ─────────────
     echo ""
-    echo "  Running BEAM (local, kv×5 + dlg×3, exact/substr match)..."
+    echo "  Running BEAM (local, kv×5 + dlg×3, full screenplay ingestion, exact/substr match)..."
     BEAM_OUT=$(venv/bin/python3 benchmark/run_beam_local.py --kv-limit 5 --dlg-limit 3 2>&1)
     echo "$BEAM_OUT"
     if echo "$BEAM_OUT" | grep -q "BEAM Summary"; then
