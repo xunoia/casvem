@@ -69,7 +69,9 @@ async def run(limit: int = 20):
 
         _reset_item_state()
 
-        # Ingest each session with its date so temporal questions can be answered
+        # Chunk each session into 500-char pieces with date prefix on every chunk.
+        # Smaller chunks = each memory is more focused = cross-encoder picks the right one.
+        CHUNK_SIZE = 500
         for idx, session in enumerate(sessions):
             date_str = session_dates[idx] if idx < len(session_dates) else ""
             if isinstance(session, list):
@@ -82,14 +84,18 @@ async def run(limit: int = 20):
                 combined = "\n".join(parts)
             else:
                 combined = str(session)
-            if combined.strip():
-                # Prefix with date so LLM can answer temporal ordering questions
-                dated_text = f"[Date: {date_str}]\n{combined}" if date_str else combined
-                ingest(text=dated_text, memory_type="session")
+            if not combined.strip():
+                continue
+            date_prefix = f"[Date: {date_str}] " if date_str else ""
+            for start in range(0, len(combined), CHUNK_SIZE):
+                chunk = combined[start:start + CHUNK_SIZE].strip()
+                if chunk:
+                    ingest(text=f"{date_prefix}{chunk}", memory_type="session")
 
-        # Query
+        # top_k=300 searches all chunks; top_n=12 + token_budget=6000 + no early exit
+        # so all 12 chunks reach the LLM (needed for multi-session temporal reasoning)
         t0 = time.perf_counter()
-        result = await casvem_query(text=question)
+        result = await casvem_query(text=question, top_k=300, top_n=12, token_budget=6000, early_exit=False)
         latency = (time.perf_counter() - t0) * 1000
 
         total_input_tokens += result.input_tokens
